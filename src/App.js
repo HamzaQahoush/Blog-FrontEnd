@@ -10,6 +10,7 @@ import PostList from "./components/Postslist";
 function App() {
   const [posts, setPosts] = useState();
   const [editedPost, setEditedPost] = useState();
+
   useEffect(() => {
     fetch("http://127.0.0.1:5000/get")
       .then((resp) => resp.json())
@@ -37,17 +38,8 @@ function App() {
     <div className="app">
       <Nav />
       <Header />
-      <addForm setPosts={setPosts} />
-      <div className="row">
-        <div className="col">
-          <button className="btn btn-success" onClick={addForm}>
-            {" "}
-            Add post{" "}
-          </button>
-        </div>
-      </div>
-      <PostList posts={posts} editPost={editPost} deletePost={deletePost} />
       <Form post={editedPost} setPosts={setPosts} />
+      <PostList posts={posts} editPost={editPost} deletePost={deletePost} />
 
       <Footer />
     </div>
