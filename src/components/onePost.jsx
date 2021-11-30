@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import APIService from "./APIServices";
+import moment from "moment";
+import { Form } from "react-bootstrap";
 
 import "../App.css";
 
@@ -34,47 +36,59 @@ const OnePost = (props) => {
           <div className="post-preview">
             <button
               type="button"
-              className="btn-close-white"
+              className="btn-close-white "
               aria-label="Close"
               onClick={() => setToggle(!toggle)}
             >
               <span aria-hidden="true">&times;</span>
             </button>
-            <input
-              onChange={(e) => setEditTitle(e.target.value)}
-              name="title"
-              className="form-control "
-              disabled={toggle}
-              required
-              value={title}
-              type="text"
-              placeholder="please enter title"
-            />
-            <textarea
-              onChange={(e) => setEditBody(e.target.value)}
-              name="body"
-              disabled={toggle}
-              required
-              value={body}
-              type="text"
-              className="form-control "
-              placeholder="please enter title"
-            />
-            <img className=" img-fluid" src={props.post.image} alt="" />
+
+            <Form>
+              <Form.Group className="mb-3 ">
+                <Form.Label></Form.Label>
+                <Form.Control
+                  size="lg"
+                  type="text"
+                  placeholder="title "
+                  disabled={toggle}
+                  required
+                  value={title}
+                  onChange={(e) => setEditTitle(e.target.value)}
+                />
+              </Form.Group>
+              <Form.Group className="mb-3">
+                <Form.Label></Form.Label>
+                <Form.Control
+                  transparent-input
+                  as="textarea"
+                  rows={3}
+                  onChange={(e) => setEditBody(e.target.value)}
+                  name="body"
+                  disabled={toggle}
+                  required
+                  value={body}
+                  type="text"
+                  placeholder="What's on your mind?"
+                />
+              </Form.Group>
+            </Form>
+
+            <img className=" img-fluid w-70" src={props.post.image} alt="" />
             <input
               onChange={(e) => setEditImage(e.target.value)}
               name="image"
               hidden={toggle}
               disabled={toggle}
               required
-              defaultValue={props.post.image || ""}
+              defaultValue={image || ""}
               type="text"
               className="form-control "
               placeholder="paste an image url"
             />
             <p className="post-meta">
               Posted by
-              <a href="#!"> {author} </a> at -{props.post.date}
+              <a href="#!"> {author} </a> at -
+              {moment(props.post.date).startOf("hour").fromNow()}
             </p>
             <input
               onChange={(e) => setEditAuthor(e.target.value)}
@@ -82,19 +96,19 @@ const OnePost = (props) => {
               hidden={toggle}
               disabled={toggle}
               required
-              defaultValue={props.post.author || ""}
+              defaultValue={author || ""}
               type="text"
               className="form-control "
               placeholder="update the author"
             />
             <button
-              className="btn btn-secondary mx-2"
+              className="btn btn-outline-secondary mx-2"
               onClick={() => setToggle(!toggle)}
             >
               Edit
             </button>
             <button
-              className="btn btn-primary mx-2"
+              className="btn btn-outline-primary mx-2"
               onClick={(e) => editPost(e, props.post)}
             >
               {" "}
@@ -102,7 +116,7 @@ const OnePost = (props) => {
             </button>
             <button
               onClick={() => props.deletePost(props.post)}
-              className="btn btn-danger"
+              className="btn btn-outline-danger"
             >
               Delete
             </button>

@@ -1,4 +1,6 @@
 import axios from "axios";
+import "../App.css";
+
 import React, { useState } from "react";
 import Modal from "react-modal";
 const Form = (props) => {
@@ -8,7 +10,7 @@ const Form = (props) => {
   const [author, setauthor] = useState("");
   const [modalOpen, setmodalOpen] = useState(false);
 
-  //fetching url
+  //fetching url using axios
   const addForm = async (e) => {
     e.preventDefault();
     const res = await axios.post(`http://127.0.0.1:4000/add`, {
@@ -30,17 +32,31 @@ const Form = (props) => {
   };
   return (
     <div>
-      <button
-        className="btn btn-secondary mx-2"
+      <span
+        className="mx-3 text-center "
+        style={{ cursor: "pointer" }}
         onClick={() => {
           setmodalOpen(true);
         }}
       >
-        {" "}
-        add post
-      </button>
-      <Modal isOpen={modalOpen} onRequestClose={() => setmodalOpen(false)}>
-        <form className="form-group" onSubmit={addForm}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="30"
+          height="30"
+          fill="currentColor"
+          class="bi bi-plus-circle-fill"
+          viewBox="0 0 16 16"
+        >
+          <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
+        </svg>
+        &nbsp; add
+      </span>{" "}
+      <Modal
+        className="w-50 bg-light"
+        isOpen={modalOpen}
+        onRequestClose={() => setmodalOpen(false)}
+      >
+        <form className="form-group  mx-5 py-5" onSubmit={addForm}>
           <div className="mb-3  ">
             <label htmlFor="title" className="form-label">
               Title
