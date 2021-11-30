@@ -9,23 +9,21 @@ import PostList from "./components/Postslist";
 
 function App() {
   const [posts, setPosts] = useState();
-  const [editedPost, setEditedPost] = useState();
+  const updatedData = (post) => {
+    const newPost = posts.posts.map((myPost) => {
+      if (myPost.id === post.id) return myPost;
+      else return myPost;
+    });
+    setPosts({ posts: newPost });
+  };
 
   useEffect(() => {
-    fetch("http://127.0.0.1:5000/get")
+    fetch("http://127.0.0.1:4000/get")
       .then((resp) => resp.json())
       .then((resp) => setPosts(resp))
 
       .catch((error) => console.log(error));
   }, []);
-  //edit
-  const editPost = (post) => {
-    setEditedPost(post);
-  };
-
-  const addForm = () => {
-    setEditedPost({ title: "", body: "" });
-  };
 
   //delete
   const deletePost = (post) => {
@@ -38,8 +36,13 @@ function App() {
     <div className="app">
       <Nav />
       <Header />
-      <Form post={editedPost} setPosts={setPosts} />
-      <PostList posts={posts} editPost={editPost} deletePost={deletePost} />
+      <Form setPosts={setPosts} />
+      <PostList
+        posts={posts}
+        deletePost={deletePost}
+        setPosts={setPosts}
+        updatedData={updatedData}
+      />
 
       <Footer />
     </div>

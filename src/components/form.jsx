@@ -1,33 +1,32 @@
 import axios from "axios";
 import React, { useState } from "react";
 import Modal from "react-modal";
-// import APIService from "./APIServices";
 const Form = (props) => {
   const [title, setTitle] = useState("");
   const [body, setbody] = useState("");
   const [image, setimage] = useState("");
   const [author, setauthor] = useState("");
   const [modalOpen, setmodalOpen] = useState(false);
-  //   const updatePost = () => {
-  //     APIService.UpdatePost(props.post.id, { title, body, image, author })
-  //       .then((resp) => console.log(resp))
-  //       .catch((error) => console.log(error));
-  //   };
+
+  //fetching url
   const addForm = async (e) => {
     e.preventDefault();
-    // APIService.addPost({ title, body, image, author })
-    //   .then((resp) => console.log(resp))
-    //   .catch((error) => console.log(error));
-    const res = await axios.post(`http://127.0.0.1:5000/add`, {
+    const res = await axios.post(`http://127.0.0.1:4000/add`, {
       title,
       body,
       image,
       author,
     });
-    // console.log(res.data);
+
     props.setPosts((prev) => ({
       posts: [...prev.posts, { title, body, image, author }],
     }));
+
+    setmodalOpen(false);
+    setTitle("");
+    setauthor("");
+    setimage("");
+    setbody("");
   };
   return (
     <div>
@@ -40,18 +39,15 @@ const Form = (props) => {
         {" "}
         add post
       </button>
-      <Modal
-        isOpen={modalOpen}
-        onRequestClose={() => setmodalOpen(false)}
-        className="row d-flex justify-content-center"
-      >
+      <Modal isOpen={modalOpen} onRequestClose={() => setmodalOpen(false)}>
         <form className="form-group" onSubmit={addForm}>
           <div className="mb-3  ">
             <label htmlFor="title" className="form-label">
               Title
             </label>
             <input
-              value={title}
+              required
+              value={title || ""}
               onChange={(t) => setTitle(t.target.value)}
               type="text"
               className="form-control "
@@ -61,7 +57,8 @@ const Form = (props) => {
               description
             </label>
             <textarea
-              value={body}
+              required
+              value={body || ""}
               onChange={(b) => setbody(b.target.value)}
               type="text"
               className="form-control "
@@ -70,8 +67,9 @@ const Form = (props) => {
             <label htmlFor="body" className="form-label">
               author
             </label>
-            <textarea
-              value={author}
+            <input
+              required
+              value={author || ""}
               onChange={(b) => setauthor(b.target.value)}
               type="text"
               className="form-control "
@@ -81,16 +79,24 @@ const Form = (props) => {
               image
             </label>
             <textarea
-              value={image}
+              value={image || ""}
               onChange={(b) => setimage(b.target.value)}
               type="image"
               className="form-control "
               placeholder="paste an image url"
             />
           </div>
-          <button type="submit"> submit </button>
-
-          <button onClick={() => setmodalOpen(false)}> close</button>
+          <button className="btn btn-primary" type="submit">
+            {" "}
+            Submit{" "}
+          </button>
+          <button
+            className="btn btn-warning"
+            onClick={() => setmodalOpen(false)}
+          >
+            {" "}
+            close
+          </button>
         </form>
       </Modal>
     </div>
