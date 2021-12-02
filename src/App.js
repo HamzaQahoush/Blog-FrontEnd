@@ -37,12 +37,17 @@ function App() {
       <Nav />
       <Header />
       <Form setPosts={setPosts} />
-      <PostList
-        posts={posts}
-        deletePost={deletePost}
-        setPosts={setPosts}
-        updatedData={updatedData}
-      />
+
+      {PostList ? (
+        <PostList
+          posts={posts}
+          deletePost={deletePost}
+          setPosts={setPosts}
+          updatedData={updatedData}
+        />
+      ) : (
+        <h1>"Nothing to Show .. try to add on the button above :)"</h1>
+      )}
 
       <Footer />
     </div>
