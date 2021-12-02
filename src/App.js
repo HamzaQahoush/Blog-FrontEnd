@@ -18,7 +18,7 @@ function App() {
   };
 
   useEffect(() => {
-    fetch("http://127.0.0.1:4000/get")
+    fetch("http://127.0.0.1:5000/get")
       .then((resp) => resp.json())
       .then((resp) => setPosts(resp))
 

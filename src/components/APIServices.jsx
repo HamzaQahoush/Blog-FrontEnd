@@ -1,6 +1,6 @@
 export default class APIService {
   static UpdatePost(id, body) {
-    return fetch(`http://127.0.0.1:4000/update/${id}`, {
+    return fetch(`http://127.0.0.1:5000/update/${id}`, {
       method: "PUT",
       headers: {
         "Access-Control-Allow-Origin": "*",
@@ -11,7 +11,7 @@ export default class APIService {
   }
 
   static DeletePost(id) {
-    return fetch(`http://127.0.0.1:4000/delete/${id}`, {
+    return fetch(`http://127.0.0.1:5000/delete/${id}`, {
       method: "DELETE",
       headers: {
         "Access-Control-Allow-Origin": "*",

@@ -23,8 +23,8 @@ const Form = (props) => {
       titleErr.titleShort = "Title Too short ";
       isValid = false;
     }
-    if (title.trim().length > 15) {
-      titleErr.titleLong = "Title Too Long ";
+    if (title.trim().length > 25) {
+      titleErr.titleLong = "Title Too Long or invaild format ";
       isValid = false;
     }
     if (body.trim().length < 5) {
@@ -39,7 +39,7 @@ const Form = (props) => {
       authorErr.authorLong = "author  Too Long ";
       isValid = false;
     }
-    if (author.trim().length < 4 || typeof author.trim() != String) {
+    if (author.trim().length < 4) {
       authorErr.authorShort = "author  Too short or invaild input  ";
       isValid = false;
     }
@@ -54,7 +54,7 @@ const Form = (props) => {
 
     const isValid = formValidation();
     if (isValid === true) {
-      const res = await axios.post(`http://127.0.0.1:4000/add`, {
+      const res = await axios.post(`http://127.0.0.1:5000/add`, {
         title,
         body,
         image,
@@ -110,7 +110,7 @@ const Form = (props) => {
               type="text"
               className="form-control "
               placeholder="
-              Title 5 ~ 15 char"
+              Title 5 ~ 25  char"
             />
             {Object.keys(titleErr).map((key) => {
               return <div style={{ color: "red" }}> {titleErr[key]} </div>;
